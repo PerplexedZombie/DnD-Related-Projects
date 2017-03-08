@@ -71,7 +71,7 @@ for sim in range(100): #the simulation range
     else:
       print('Draw')
 
-while (gobHP >= 1) or (charHP >= 1):
+while (gobHP >= 1) and (charHP >= 1):
   d20r = random.randint(1, 20) + 3 #once again placeholder
   print('rolled ' + str(d20r))
   if d20r == 23: #Should really object orientate this
