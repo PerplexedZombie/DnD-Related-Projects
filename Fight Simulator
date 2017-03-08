@@ -1,0 +1,131 @@
+#simulate a character with no bonuses rolling to attack 
+#a goblin with an AC15 
+#and how long it will take for 1 of them to die
+#print the success probability of the character killing
+#the goblin
+
+import random #See XKCD.com/221
+#imports the random function/module
+charWin = 0 #these are the wins for the Goblin and Character
+gobWin = 0 #allows for calculating the percentage at the end
+sim = 0 #my way of setting the range
+gobHP = 7 #temp placeholder
+charHP = 13 #temp placeholder
+
+for sim in range(100): #the simulation range
+  d20r = random.randint(1, 20) + 3 #once again placeholder
+  print('rolled ' + str(d20r))
+  if d20r == 23: #Should really object orientate this
+    print('Crit')
+    chardmg = (random.randint(1, 6) + 1) * 2
+    print('Character does ' + str(chardmg) + ' damage')
+    gobHP -= chardmg
+    print('Goblin\'s HP ' + str(gobHP))
+    if gobHP <= 0:
+      charWin += 1
+      gobHP = 7
+      charHP = 13
+      print('')
+    else:
+      continue
+  elif d20r >= 15: #Should REALLY object orientate this
+    chardmg = random.randint(1, 6) + 1
+    print('Character does ' + str(chardmg) + ' damage')
+    gobHP -= chardmg
+    print('Goblin\'s HP ' + str(gobHP))
+    if gobHP <= 0:
+      charWin += 1
+      gobHP = 7
+      charHP = 13
+      print('')
+    else:
+      continue
+  else:
+    d20r = random.randint(1, 20) + 3
+    print('rolled ' + str(d20r))
+    if d20r == 23:
+      print('Crit')
+      gobdmg = (random.randint(1, 4) + 2) * 2
+      print('Goblin does ' + str(gobdmg) + ' damage')
+      charHP -= gobdmg
+      print('Character\'s HP ' + str(charHP))
+      if charHP <= 0:
+        gobWin += 1
+        gobHP = 7
+        charHP = 13
+        print('')
+      else:
+        continue
+    elif d20r >= 14:
+      gobdmg = random.randint(1, 4) + 2
+      print('Goblin does ' + str(gobdmg) + ' damage')
+      charHP -= gobdmg
+      print('Character\'s HP ' + str(charHP))
+      if charHP <= 0:
+        gobWin += 1
+        gobHP = 7
+        charHP = 13
+        print('')
+      else:
+        continue
+    else:
+      print('Draw')
+
+while (gobHP >= 1) or (charHP >= 1):
+  d20r = random.randint(1, 20) + 3 #once again placeholder
+  print('rolled ' + str(d20r))
+  if d20r == 23: #Should really object orientate this
+    print('Crit')
+    chardmg = (random.randint(1, 6) + 1) * 2
+    print('Character does ' + str(chardmg) + ' damage')
+    gobHP -= chardmg
+    print('Goblin\'s HP ' + str(gobHP))
+    if gobHP <= 0:
+      charWin += 1
+      print('')
+    else:
+      continue
+  elif d20r >= 15: #Should REALLY object orientate this
+    chardmg = random.randint(1, 6) + 1
+    print('Character does ' + str(chardmg) + ' damage')
+    gobHP -= chardmg
+    print('Goblin\'s HP ' + str(gobHP))
+    if gobHP <= 0:
+      charWin += 1
+      print('')
+    else:
+      continue
+  else:
+    d20r = random.randint(1, 20) + 3
+    print('rolled ' + str(d20r))
+    if d20r == 23:
+      print('Crit')
+      gobdmg = (random.randint(1, 4) + 2) * 2
+      print('Goblin does ' + str(gobdmg) + ' damage')
+      charHP -= gobdmg
+      print('Character\'s HP ' + str(charHP))
+      if charHP <= 0:
+        gobWin += 1
+        print('')
+      else:
+        continue
+    elif d20r >= 14:
+      gobdmg = random.randint(1, 4) + 2
+      print('Goblin does ' + str(gobdmg) + ' damage')
+      charHP -= gobdmg
+      print('Character\'s HP ' + str(charHP))
+      if charHP <= 0:
+        gobWin += 1
+        print('')
+      else:
+        continue
+    else:
+      print('Draw')
+  
+print('Character won ' + str(charWin) + ' out of 1000 fights')
+print('Character win chance = ') #I don't think these are correct
+try: #I had the maths here wrong, fixed now
+  print(str(float(charWin / 1000)) + '%')
+except ZeroDivisionError:
+  print('100%')
+  
