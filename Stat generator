@@ -88,11 +88,12 @@ while True: #loop to assign stats
     print('')
   break
 print('') #Makes a couple gaps for reading clarity
-print('')
-print('Your Stats:') #Lists the resulting stats
-print('Strength: ' + str(stats['Str']))
-print('Dexterity: ' + str(stats['Dex']))
-print('Constitution: ' + str(stats['Con']))
-print('Intelligence: ' + str(stats['Int']))
-print('Wisdom: ' + str(stats['Wis']))
-print('Charisma: ' + str(stats['Cha']))
+print('') #Lists stats in a neat order
+print('Your Stats:' + '\n\
+Strength: ' + str(stats['Str']) + '\n\
+Dexterity: ' + str(stats['Dex']) + '\n\
+Constitution: ' + str(stats['Con']) + '\n\
+Intelligence: ' + str(stats['Int']) + '\n\
+Wisdom: ' + str(stats['Wis']) + '\n\
+Charisma: ' + str(stats['Cha']))
+#Done like this for code readability
