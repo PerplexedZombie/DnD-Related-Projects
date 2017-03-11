@@ -1,4 +1,7 @@
 import Settings
+def Rtext():
+    print('Is this the race you would like to be?')
+    
 
 RaceList = Settings.RaceList
 ClassList = Settings.ClassList
@@ -13,8 +16,20 @@ while True:
             print('')
             continue
         elif Settings.UserRace == 'Dwarf Hill':
-            import RaceInfo
-            print('Is this the race you would like to be?')
+            import HillDwarf
+            Rtext
+            Resp1 = input()
+            if Resp1 in ('No', 'no', 'on'):
+                continue
+        elif Settings.UserRace == 'Mountain Dwarf':
+            import MountainDwarf
+            Rtext
+            Resp1 = input()
+            if Resp1 in ('No', 'no', 'on'):
+                continue
+        elif Settings.UserRace == 'High Elf':
+            import HighElf
+            Rtext
             Resp1 = input()
             if Resp1 in ('No', 'no', 'on'):
                 continue

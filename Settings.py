@@ -5,11 +5,12 @@ def init(): #This works, somehow...
     global UserRace
     global UserClass
     global stats
+    global DwarvenToughness
 
     
-    RaceList = ['Dwarf Hill', 'Dwarf (Mountain)', 'Elf (High)', 'Elf (Forest)', \
-            'Halfling (Lightfoot)', 'Halfling (Stout)', 'Human', 'Dragonborn', \
-            'Gnome (Forest)', 'Gnome (Rock)', 'Half-Elf', 'Half-Orc', 'Tiefling']
+    RaceList = ['Hill Dwarf', 'Mountain Dwarf', 'High Elf', 'Forest Elf', \
+            'Lightfoot Halfling', 'Stout Halfling', 'Human', 'Dragonborn', \
+            'Forest Gnome', 'Rock Gnome', 'Half-Elf', 'Half-Orc', 'Tiefling']
 
     ClassList = ['Barbarian', 'Bard', 'Cleric', 'Druid', 'Fighter', 'Monk', \
              'Paladin', 'Ranger', 'Rogue', 'Sorcerer', 'Warlock', \
@@ -18,5 +19,7 @@ def init(): #This works, somehow...
     UserClass = ''
     
     stats = {'Str' : 0, 'Dex' : 0, 'Con' : 0, 'Int' : 0, 'Wis' : 0, 'Cha' : 0}
+
+    DwarvenToughness = 1
 
     
