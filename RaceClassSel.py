@@ -1,4 +1,5 @@
 import Settings
+
 RaceList = Settings.RaceList
 ClassList = Settings.ClassList
 while True:
@@ -11,6 +12,12 @@ while True:
             print('That wasn\'t a race?')
             print('')
             continue
+        elif Settings.UserRace == 'Dwarf Hill':
+            import RaceInfo
+            print('Is this the race you would like to be?')
+            Resp1 = input()
+            if Resp1 in ('No', 'no', 'on'):
+                continue
         break
     while True:
         print('')
