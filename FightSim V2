@@ -11,12 +11,15 @@ AC = int(input())
 print('')
 gobHP = 7
 charHP = PcharHP
+gobCrit = 0
+charCrit = 0
 
 while sim != 10000:
   d20 = random.randint(1, 20)
   #print('Rolled ' + str(d20))
   if d20 == 20:
     #print('Crit')
+    charCrit += 1
     charDMG = (random.randint(1, 6) + 3) * 2 
     gobHP -= charDMG
     #print('Goblin\'s HP: ' + str(gobHP))
@@ -52,6 +55,8 @@ while sim != 10000:
       d20 = random.randint(1, 20)
       #print('Rolled ' + str(d20))
       if d20 == 20:
+        #print('Crit')
+        gobCrit += 1
         gobDMG = (random.randint(1, 6) + 2) * 2
         charHP -= gobDMG
         #print('Character\'s HP: ' + str(charHP))
