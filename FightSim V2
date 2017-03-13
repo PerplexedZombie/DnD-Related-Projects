@@ -1,0 +1,87 @@
+import random
+
+charWin = 0
+gobWin = 0
+sim = 0
+
+print('What is your Maxium HP?')
+PcharHP = int(input())
+print('What is your AC?')
+AC = int(input())
+gobHP = 7
+charHP = PcharHP
+
+while sim != 100:
+  d20 = random.randint(1, 20)
+  #print('Rolled ' + str(d20))
+  if d20 == 20:
+    #print('Crit')
+    charDMG = (random.randint(1, 6) + 3) * 2 
+    gobHP -= charDMG
+    #print('Goblin\'s HP: ' + str(gobHP))
+    if gobHP <= 0:
+      charWin += 1
+      gobHP = 7
+      charHP = PcharHP
+      sim += 1
+      #print('Character wins ' + str(charWin))
+      #print('')
+      continue
+    else:
+      continue
+  elif d20 != 20:
+    d20M = d20 + 3 
+    #print('d20M: ' + str(d20M))
+    if d20M >= 15:
+      charDMG = random.randint(1, 6) + 3
+      gobHP -= charDMG
+      #print('Goblin\'s HP: ' + str(gobHP))
+      if gobHP <= 0:
+        charWin += 1 
+        gobHP = 7
+        charHP = PcharHP
+        sim += 1
+        #print('Character wins ' + str(charWin))
+        #print('')
+        continue
+      else:
+        continue
+    elif d20M < 15:
+      #print('Miss')
+      d20 = random.randint(1, 20)
+      #print('Rolled ' + str(d20))
+      if d20 == 20:
+        gobDMG = (random.randint(1, 6) + 2) * 2
+        charHP -= gobDMG
+        #print('Character\'s HP: ' + str(charHP))
+        if charHP <= 0:
+          gobWin += 1
+          gobHP = 7
+          charHP = PcharHP
+          sim += 1
+          #print('Goblin wins ' + str(gobWin))
+          #print('')
+          continue
+        else:
+          continue
+      if d20 != 20:
+        d20M = d20 + 4
+        #print('d20M = ' + str(d20M))
+        if d20M >= AC:
+          gobDMG = random.randint(1, 6) + 2
+          charHP -= gobDMG
+          #print('Character\'s HP: ' + str(charHP))
+          if charHP <= 0:
+            gobWin += 1
+            gobHP = 7
+            charHP = PcharHP
+            sim += 1
+            #print('Goblin wins ' + str(gobWin))
+            #print('')
+            continue
+          else:
+            continue
+        elif d20M < AC:
+          #print('Miss')
+          continue
+print('Character has ' + str(charWin) + '% of winning')
