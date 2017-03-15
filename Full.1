@@ -1,0 +1,300 @@
+
+#aiming to make code that will roll 3d6 6 times
+#and make a list of the results then make a dictionairy 
+#using the results as an example of a DnD character sheet
+
+import random #see XKCD.com/221
+ #import random module to make a random number on a d6
+numlist = [] #Will be using this to show rolled numbers
+d6 = 3 #determines how many times to roll the d6
+def pStat(): #simple func to roll the
+ #d6 3 times then sum them
+  global numblist #using the numlist at start
+  rolls = [int(random.randint(1, 6)) for range in range(d6)]
+  numlist.append(sum(rolls))
+  
+for x in range(0, 6): #uses the previous func to gen 6 numbers
+  pStat() #for the stats
+
+print(sorted(numlist, reverse=True)) #makes a list of the
+ #availble number to use
+
+stats = {} #dict for the end results
+while True: #loop to assign stats
+  print('Assign stats:') #Goes through the stats one by one
+  print('Strength: ')
+  x = int(input()) #with user unputting an int
+  stats['Str'] = x #x is used as it doesn't have to remember
+  #the input throughout
+  if x not in numlist: #int is checked to see if user rolled
+    print('You do not have that number') #that number
+    continue #if they don't have the number it loops
+  else: #This then removes the number input
+    numlist.remove(x) #to show remaining numbers
+    print('') #and to avoid using the same number
+    print(sorted(numlist, reverse=True)) #for all stats
+    print('') #caused by a loop hole
+  print('Dexterity: ') #repeats for all stats
+  x = int(input())
+  stats['Dex'] = x
+  if x not in numlist:
+    print('You do not have that number')
+    continue
+  else:
+    numlist.remove(x)
+    print('')
+    print(sorted(numlist, reverse=True))
+    print('')
+  print('Constitution: ')
+  x = int(input())
+  stats['Con'] = x
+  if x not in numlist:
+    print('You do not have that number')
+    continue
+  else:
+    numlist.remove(x)
+    print('')
+    print(sorted(numlist, reverse=True))
+    print('')
+  print('Intelligence: ')
+  x = int(input())
+  stats['Int'] = x
+  if x not in numlist:
+    print('You do not have that number')
+    continue
+  else:
+    numlist.remove(x)
+    print('')
+    print(sorted(numlist, reverse=True))
+    print('')
+  print('Wisdom: ')
+  x = int(input())
+  stats['Wis'] = x
+  if x not in numlist:
+    print('You do not have that number')
+    continue
+  else:
+    numlist.remove(x)
+    print('')
+    print(sorted(numlist, reverse=True))
+    print('')
+  print('Charisma: ')
+  x = int(input())
+  stats['Cha'] = x
+  if x not in numlist:
+    print('You do not have that number')
+    continue
+  else:
+    numlist.remove(x)
+    print('')
+  break
+print('') #Makes a couple gaps for reading clarity
+print('') #Lists stats in a neat order
+print('Your Stats:' + '\n\
+Strength: ' + str(stats['Str']) + '\n\
+Dexterity: ' + str(stats['Dex']) + '\n\
+Constitution: ' + str(stats['Con']) + '\n\
+Intelligence: ' + str(stats['Int']) + '\n\
+Wisdom: ' + str(stats['Wis']) + '\n\
+Charisma: ' + str(stats['Cha']))
+#Done like this for code readability
+print('')
+
+if 1 == stats['Con'] or 2 == stats['Con']:
+  ConMod = -5
+if 3 == stats['Con'] or 4 == stats['Con']:
+  ConMod = -4
+if 5 == stats['Con'] or 6 == stats['Con']:
+  ConMod = -3
+if 7 == stats['Con'] or 8 == stats['Con']:
+  ConMod = -2
+if 9 == stats['Con'] or 9 == stats['Con']:
+  ConMod = -1
+if 11 == stats['Con'] or 12 == stats['Con']:
+  ConMod = 0
+if 13 == stats['Con'] or 14 == stats['Con']:
+  ConMod = 1
+if 15 == stats['Con'] or 16 == stats['Con']:
+  ConMod = 2
+if 17 == stats['Con'] or 18 == stats['Con']:
+  ConMod = 3
+
+if 1 == stats['Str'] or 2 == stats['Str']:
+  StrMod = -5
+if 3 == stats['Str'] or 4 == stats['Str']:
+  StrMod = -4
+if 5 == stats['Str'] or 6 == stats['Str']:
+  StrMod = -3
+if 7 == stats['Str'] or 8 == stats['Str']:
+  StrMod = -2
+if 9 == stats['Str'] or 9 == stats['Str']:
+  StrMod = -1
+if 11 == stats['Str'] or 12 == stats['Str']:
+  StrMod = 0
+if 13 == stats['Str'] or 14 == stats['Str']:
+  StrMod = 1
+if 15 == stats['Str'] or 16 == stats['Str']:
+  StrMod = 2
+if 17 == stats['Str'] or 18 == stats['Str']:
+  StrMod = 3
+
+if 1 == stats['Dex'] or 2 == stats['Dex']:
+  DexMod = -5
+if 3 == stats['Dex'] or 4 == stats['Dex']:
+  DexMod = -4
+if 5 == stats['Dex'] or 6 == stats['Dex']:
+  DexMod = -3
+if 7 == stats['Dex'] or 8 == stats['Dex']:
+  DexMod = -2
+if 9 == stats['Dex'] or 9 == stats['Dex']:
+  DexMod = -1
+if 11 == stats['Dex'] or 12 == stats['Dex']:
+  DexMod = 0
+if 13 == stats['Dex'] or 14 == stats['Dex']:
+  DexMod = 1
+if 15 == stats['Dex'] or 16 == stats['Dex']:
+  DexMod = 2
+if 17 == stats['Dex'] or 18 == stats['Dex']:
+  DexMod = 3
+
+charWin = 0
+gobWin = 0
+sim = 0
+
+print('Your Max HP is: ')
+PcharHP = 12 + ConMod
+print(PcharHP)
+print('(12 + ' + str(ConMod) + ')')
+print('')
+print('Your AC is: ')
+AC = 11 + DexMod
+print(AC)
+print('(11 + ' + str(DexMod) + ')')
+print('')
+print(ConMod)
+print(StrMod)
+print(DexMod)
+print('')
+gobHP = 7
+charHP = PcharHP
+gobCrit = 0
+charCrit = 0
+
+while sim != 100:
+  d20 = random.randint(1, 20)
+  print('Character Rolled ' + str(d20))
+  if d20 == 20:
+    print('Crit')
+    charCrit += 1
+    charDmg = (random.randint(1, 6) + StrMod) * 2
+    if charDmg <= 0:
+      charDmg = 2
+    print('Character deals ' + str(charDmg) + ' damage')
+    gobHP -= charDmg
+    print('Goblin\'s HP: ' + str(gobHP))
+    if gobHP <= 0:
+      charWin += 1
+      gobHP = 7
+      charHP = PcharHP
+      sim += 1
+      print('Character wins ' + str(charWin))
+      print('')
+      continue
+    else:
+      continue
+  elif d20 == 1:
+    print('Critical fail')
+    charDmg = int(random.randint(1, 4) + (StrMod / 2))
+    if charDmg <= 0:
+      charDmg = 2
+    print('Character injured themself for ' + str(charDmg) + ' damage')
+    charHP -= charDmg
+    print('Character\'s HP: ' + str(int(charHP)))
+    if charHP <= 0:
+      gobWin += 1
+      gobHP = 7
+      charHP = PcharHP
+      sim += 1
+      print('Goblin wins ' + str(gobWin))
+      print('')
+      continue
+  elif d20 != (20) or (1):
+    d20M = d20 + 3 
+    print('d20M: ' + str(d20M))
+    if d20M >= 15:
+      charDmg = random.randint(1, 6) + StrMod
+      if charDmg <= 0:
+        charDmg = 1
+      print('Character deals ' + str(charDmg) + ' damage')
+      gobHP -= charDmg
+      print('Goblin\'s HP: ' + str(gobHP))
+      if gobHP <= 0:
+        charWin += 1 
+        gobHP = 7
+        charHP = PcharHP
+        sim += 1
+        print('Character wins ' + str(charWin))
+        print('')
+        continue
+      else:
+        continue
+    elif d20M < 15:
+      print('Miss')
+      d20 = random.randint(1, 20)
+      print('Goblin Rolled ' + str(d20))
+      if d20 == 20:
+        print('Crit')
+        gobCrit += 1
+        gobDmg = (random.randint(1, 6) + 2) * 2
+        print('Goblin deals ' + str(gobDmg) + ' damage')
+        charHP -= gobDmg
+        print('Character\'s HP: ' + str(charHP))
+        if charHP <= 0:
+          gobWin += 1
+          gobHP = 7
+          charHP = PcharHP
+          sim += 1
+          print('Goblin wins ' + str(gobWin))
+          print('')
+          continue
+        else:
+          continue
+      elif d20 == 1:
+        print('Critical fail')
+        gobDmg = int(random.randint(1, 4) + (2 / 2))
+        print('Goblin injured itself for ' + str(gobDmg) + ' damage')
+        gobHP -= gobDmg
+        print('Goblin\'s HP: ' + str(int(gobHP)))
+        if gobHP <= 0:
+          charWin += 1
+          gobHP = 7
+          charHP = PcharHP
+          sim += 1
+          print('Character wins ' + str(charWin))
+          print('')
+          continue
+      elif d20 != (20) or (1):
+        d20M = d20 + 4
+        print('d20M = ' + str(d20M))
+        if d20M >= AC:
+          gobDmg = random.randint(1, 6) + 2
+          print('Goblin deals ' + str(gobDmg) + ' damage')
+          charHP -= gobDmg
+          print('Character\'s HP: ' + str(charHP))
+          if charHP <= 0:
+            gobWin += 1
+            gobHP = 7
+            charHP = PcharHP
+            sim += 1
+            print('Goblin wins ' + str(gobWin))
+            print('')
+            continue
+          else:
+            continue
+        elif d20M < AC:
+          print('Miss')
+          continue
+print('Won ' + str(charWin) + ' out of 100')
+print('Character has ' + str(int((charWin/100) * 100)) + '% of winning')
+
+
