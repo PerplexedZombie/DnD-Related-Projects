@@ -100,6 +100,9 @@ Charisma: ' + str(stats['Cha']))
 #Done like this for code readability
 print('')
 
+#Then because the stat just sets the modifiers
+#have stats checked to determine modifiers
+
 if 1 == stats['Con'] or 2 == stats['Con']:
   ConMod = -5
 if 3 == stats['Con'] or 4 == stats['Con']:
@@ -108,7 +111,7 @@ if 5 == stats['Con'] or 6 == stats['Con']:
   ConMod = -3
 if 7 == stats['Con'] or 8 == stats['Con']:
   ConMod = -2
-if 9 == stats['Con'] or 9 == stats['Con']:
+if 9 == stats['Con'] or 10 == stats['Con']:
   ConMod = -1
 if 11 == stats['Con'] or 12 == stats['Con']:
   ConMod = 0
@@ -127,7 +130,7 @@ if 5 == stats['Str'] or 6 == stats['Str']:
   StrMod = -3
 if 7 == stats['Str'] or 8 == stats['Str']:
   StrMod = -2
-if 9 == stats['Str'] or 9 == stats['Str']:
+if 9 == stats['Str'] or 10 == stats['Str']:
   StrMod = -1
 if 11 == stats['Str'] or 12 == stats['Str']:
   StrMod = 0
@@ -146,7 +149,7 @@ if 5 == stats['Dex'] or 6 == stats['Dex']:
   DexMod = -3
 if 7 == stats['Dex'] or 8 == stats['Dex']:
   DexMod = -2
-if 9 == stats['Dex'] or 9 == stats['Dex']:
+if 9 == stats['Dex'] or 10 == stats['Dex']:
   DexMod = -1
 if 11 == stats['Dex'] or 12 == stats['Dex']:
   DexMod = 0
@@ -156,22 +159,28 @@ if 15 == stats['Dex'] or 16 == stats['Dex']:
   DexMod = 2
 if 17 == stats['Dex'] or 18 == stats['Dex']:
   DexMod = 3
+  
+#3 crucial modifiers for the simulation
 
+#The variables for the simulation
 charWin = 0
 gobWin = 0
 sim = 0
 
+#This is to check the previous modifiers are working
+#and sets up player stats for simulation
 print('Your Max HP is: ')
 PcharHP = 12 + ConMod
-print(PcharHP)
-print('(12 + ' + str(ConMod) + ')')
+print(PcharHP) #A permanent variable to reset the
+               #HP after each round
+print('(12 + ' + str(ConMod) + ')') #Str mod for damage
 print('')
-print('Your AC is: ')
+print('Your AC is: ') #AC mod for damage avoidance
 AC = 11 + DexMod
 print(AC)
 print('(11 + ' + str(DexMod) + ')')
 print('')
-print(ConMod)
+print(ConMod) #These check previous modifiers are working
 print(StrMod)
 print(DexMod)
 print('')
@@ -180,120 +189,128 @@ charHP = PcharHP
 gobCrit = 0
 charCrit = 0
 
-while sim != 100:
-  d20 = random.randint(1, 20)
-  print('Character Rolled ' + str(d20))
-  if d20 == 20:
-    print('Crit')
-    charCrit += 1
+while sim != 100: #Simulation
+  d20 = random.randint(1, 20) #Rolls a d20
+  #print('Character Rolled ' + str(d20))
+  if d20 == 20: #Accounts for a crit
+    #print('Crit')
+    charCrit += 1 #Tracks crit for fun
     charDmg = (random.randint(1, 6) + StrMod) * 2
-    if charDmg <= 0:
+    if charDmg <= 0: #Incase the StrMod makes the Dmg negative
       charDmg = 2
-    print('Character deals ' + str(charDmg) + ' damage')
+    #print('Character deals ' + str(charDmg) + ' damage')
     gobHP -= charDmg
-    print('Goblin\'s HP: ' + str(gobHP))
-    if gobHP <= 0:
-      charWin += 1
-      gobHP = 7
+    #print('Goblin\'s HP: ' + str(gobHP))
+    if gobHP <= 0: #Check to move to next round
+      charWin += 1 #Counts victories
+      gobHP = 7 #Reset the stats
       charHP = PcharHP
-      sim += 1
-      print('Character wins ' + str(charWin))
-      print('')
+      sim += 1 #Count the sim rounds
+      #print('Character wins ' + str(charWin)) #Visually counts
+      #sim rounds
+      
+      #print('')
       continue
     else:
       continue
-  elif d20 == 1:
-    print('Critical fail')
-    charDmg = int(random.randint(1, 4) + (StrMod / 2))
-    if charDmg <= 0:
+  elif d20 == 1: #Accounts for Crit fail
+    #print('Critical fail')
+    charDmg = int(random.randint(1, 4) + (StrMod / 2)) #Self Dmg
+    if charDmg <= 0: #incase of negative Dmg
       charDmg = 2
-    print('Character injured themself for ' + str(charDmg) + ' damage')
+    #print('Character injured themself for ' + str(charDmg) + ' damage')
     charHP -= charDmg
-    print('Character\'s HP: ' + str(int(charHP)))
-    if charHP <= 0:
-      gobWin += 1
+    #print('Character\'s HP: ' + str(int(charHP)))
+    if charHP <= 0: #could object orientate this
+      gobWin += 1 #resets the round if applicable
       gobHP = 7
       charHP = PcharHP
       sim += 1
-      print('Goblin wins ' + str(gobWin))
-      print('')
+      #print('Goblin wins ' + str(gobWin))
+      #Because this follows a crit fail, it counts for the Gob
+      #Rather than Char, as Char is the one that could die
+      
+      #print('')
       continue
-  elif d20 != (20) or (1):
-    d20M = d20 + 3 
-    print('d20M: ' + str(d20M))
-    if d20M >= 15:
-      charDmg = random.randint(1, 6) + StrMod
-      if charDmg <= 0:
+  elif d20 != (20) or (1): #The overall roll
+    d20M = d20 + 3 #Plus the modifier
+    #print('d20M: ' + str(d20M))
+    if d20M >= 15: #Checks against Gob AC
+      charDmg = random.randint(1, 6) + StrMod #Dmg
+      if charDmg <= 0: #incase of negative Dmg
         charDmg = 1
-      print('Character deals ' + str(charDmg) + ' damage')
+      #print('Character deals ' + str(charDmg) + ' damage')
       gobHP -= charDmg
-      print('Goblin\'s HP: ' + str(gobHP))
+      #print('Goblin\'s HP: ' + str(gobHP))
       if gobHP <= 0:
         charWin += 1 
         gobHP = 7
         charHP = PcharHP
         sim += 1
-        print('Character wins ' + str(charWin))
-        print('')
+        #print('Character wins ' + str(charWin))
+        #print('')
         continue
       else:
         continue
     elif d20M < 15:
-      print('Miss')
-      d20 = random.randint(1, 20)
-      print('Goblin Rolled ' + str(d20))
-      if d20 == 20:
-        print('Crit')
-        gobCrit += 1
-        gobDmg = (random.randint(1, 6) + 2) * 2
-        print('Goblin deals ' + str(gobDmg) + ' damage')
-        charHP -= gobDmg
-        print('Character\'s HP: ' + str(charHP))
-        if charHP <= 0:
-          gobWin += 1
-          gobHP = 7
-          charHP = PcharHP
-          sim += 1
-          print('Goblin wins ' + str(gobWin))
-          print('')
-          continue
-        else:
-          continue
-      elif d20 == 1:
-        print('Critical fail')
-        gobDmg = int(random.randint(1, 4) + (2 / 2))
-        print('Goblin injured itself for ' + str(gobDmg) + ' damage')
-        gobHP -= gobDmg
-        print('Goblin\'s HP: ' + str(int(gobHP)))
-        if gobHP <= 0:
-          charWin += 1
-          gobHP = 7
-          charHP = PcharHP
-          sim += 1
-          print('Character wins ' + str(charWin))
-          print('')
-          continue
-      elif d20 != (20) or (1):
-        d20M = d20 + 4
-        print('d20M = ' + str(d20M))
-        if d20M >= AC:
-          gobDmg = random.randint(1, 6) + 2
-          print('Goblin deals ' + str(gobDmg) + ' damage')
-          charHP -= gobDmg
-          print('Character\'s HP: ' + str(charHP))
-          if charHP <= 0:
-            gobWin += 1
-            gobHP = 7
-            charHP = PcharHP
-            sim += 1
-            print('Goblin wins ' + str(gobWin))
-            print('')
-            continue
-          else:
-            continue
-        elif d20M < AC:
-          print('Miss')
-          continue
+      #print('Miss')
+      pass
+  d20 = random.randint(1, 20) 
+  #After the player roll, rolls for the goblin
+  #this allows it to alternate
+  #print('Goblin Rolled ' + str(d20))
+  if d20 == 20:
+    #print('Crit')
+    gobCrit += 1
+    gobDmg = (random.randint(1, 6) + 2) * 2
+    #print('Goblin deals ' + str(gobDmg) + ' damage')
+    charHP -= gobDmg
+    #print('Character\'s HP: ' + str(charHP))
+    if charHP <= 0:
+      gobWin += 1
+      gobHP = 7
+      charHP = PcharHP
+      sim += 1
+      #print('Goblin wins ' + str(gobWin))
+      #print('')
+      continue
+    else:
+      continue
+  elif d20 == 1:
+    #print('Critical fail')
+    gobDmg = int(random.randint(1, 4) + (2 / 2))
+    #print('Goblin injured itself for ' + str(gobDmg) + ' damage')
+    gobHP -= gobDmg
+    #print('Goblin\'s HP: ' + str(int(gobHP)))
+    if gobHP <= 0:
+      charWin += 1
+      gobHP = 7
+      charHP = PcharHP
+      sim += 1
+      #print('Character wins ' + str(charWin))
+      #print('')
+      continue
+  elif d20 != (20) or (1):
+    d20M = d20 + 4
+    #print('d20M = ' + str(d20M))
+    if d20M >= AC:
+      gobDmg = random.randint(1, 6) + 2
+      #print('Goblin deals ' + str(gobDmg) + ' damage')
+      charHP -= gobDmg
+      #print('Character\'s HP: ' + str(charHP))
+      if charHP <= 0:
+        gobWin += 1
+        gobHP = 7
+        charHP = PcharHP
+        sim += 1
+        #print('Goblin wins ' + str(gobWin))
+        #print('')
+        continue
+      else:
+        continue
+    elif d20M < AC:
+      #print('Miss')
+      continue
 print('Won ' + str(charWin) + ' out of 100')
 print('Character has ' + str(int((charWin/100) * 100)) + '% of winning')
 
