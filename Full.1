@@ -16,11 +16,36 @@ def pStat(): #simple func to roll the
 for x in range(0, 6): #uses the previous func to gen 6 numbers
   pStat() #for the stats
 
-print(sorted(numlist, reverse=True)) #makes a list of the
- #availble number to use
 
 stats = {} #dict for the end results
 while True: #loop to assign stats
+  print('Do you already have stats rolled?')
+  preroll = input()
+  if preroll in ('Yes', 'yes', 'I have', 'I do'):
+    print('')
+    print('Enter your stats')
+    print('Strength:')
+    x = int(input())
+    stats['Str'] = x
+    print('Dexterity: ') #repeats for all stats
+    x = int(input())
+    stats['Dex'] = x
+    print('Constitution: ')
+    x = int(input())
+    stats['Con'] = x
+    print('Intelligence: ')
+    x = int(input())
+    stats['Int'] = x
+    print('Wisdom: ')
+    x = int(input())
+    stats['Wis'] = x
+    print('Charisma: ')
+    x = int(input())
+    stats['Cha'] = x
+    break
+  print('Generating some for you')
+  print(sorted(numlist, reverse=True)) #makes a list of the
+ #availble number to use
   print('Assign stats:') #Goes through the stats one by one
   print('Strength: ')
   x = int(input()) #with user unputting an int
@@ -181,7 +206,7 @@ print(AC)
 print('(11 + ' + str(DexMod) + ')')
 print('')
 
-#These shows previous modifiers are working
+#These check previous modifiers are working
 print('ConMod: ' + str(ConMod)) 
 print('StrMod: ' + str(StrMod))
 print('DexMod: ' + str(DexMod))
@@ -191,7 +216,7 @@ charHP = PcharHP
 gobCrit = 0
 charCrit = 0
 
-while sim != 100: #Simulation
+while sim != 1000: #Simulation
   d20 = random.randint(1, 20) #Rolls a d20
   #print('Character Rolled ' + str(d20))
   if d20 == 20: #Accounts for a crit
@@ -313,7 +338,7 @@ while sim != 100: #Simulation
     elif d20M < AC:
       #print('Miss')
       continue
-print('Won ' + str(charWin) + ' out of 100')
-print('Character has ' + str(int((charWin/100) * 100)) + '% of winning')
+print('Won ' + str(charWin) + ' out of 1000')
+print('Character has ' + str(int((charWin/1000) * 100)) + '% of winning')
 
 
