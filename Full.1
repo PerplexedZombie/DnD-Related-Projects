@@ -24,31 +24,24 @@ while True: #loop to assign stats
   if preroll in ('Yes', 'yes', 'I have', 'I do'):
     print('')
     print('Enter your stats')
-    print('Strength:')
-    x = int(input())
+    x = int(input('Strength: '))
     stats['Str'] = x
-    print('Dexterity: ') #repeats for all stats
-    x = int(input())
+    x = int(input('Dexterity: ')) #repeats for all stats
     stats['Dex'] = x
-    print('Constitution: ')
-    x = int(input())
+    x = int(input('Constitution: '))
     stats['Con'] = x
-    print('Intelligence: ')
-    x = int(input())
+    x = int(input('Intelligence: '))
     stats['Int'] = x
-    print('Wisdom: ')
-    x = int(input())
+    x = int(input('Wisdom: '))
     stats['Wis'] = x
-    print('Charisma: ')
-    x = int(input())
+    x = int(input('Charisma: '))
     stats['Cha'] = x
     break
   print('Generating some for you')
   print(sorted(numlist, reverse=True)) #makes a list of the
  #availble number to use
-  print('Assign stats:') #Goes through the stats one by one
-  print('Strength: ')
-  x = int(input()) #with user unputting an int
+  print('Assign your stats') #Goes through the stats one by one
+  x = int(input('Strength: ')) #with user unputting an int
   stats['Str'] = x #x is used as it doesn't have to remember
   #the input throughout
   if x not in numlist: #int is checked to see if user rolled
@@ -59,8 +52,7 @@ while True: #loop to assign stats
     print('') #and to avoid using the same number
     print(sorted(numlist, reverse=True)) #for all stats
     print('') #caused by a loop hole
-  print('Dexterity: ') #repeats for all stats
-  x = int(input())
+  x = int(input('Dexterity: ')) #repeats for all stats
   stats['Dex'] = x
   if x not in numlist:
     print('You do not have that number')
@@ -70,8 +62,7 @@ while True: #loop to assign stats
     print('')
     print(sorted(numlist, reverse=True))
     print('')
-  print('Constitution: ')
-  x = int(input())
+  x = int(input('Constitution: '))
   stats['Con'] = x
   if x not in numlist:
     print('You do not have that number')
@@ -81,8 +72,7 @@ while True: #loop to assign stats
     print('')
     print(sorted(numlist, reverse=True))
     print('')
-  print('Intelligence: ')
-  x = int(input())
+  x = int(input('Intelligence: '))
   stats['Int'] = x
   if x not in numlist:
     print('You do not have that number')
@@ -92,8 +82,7 @@ while True: #loop to assign stats
     print('')
     print(sorted(numlist, reverse=True))
     print('')
-  print('Wisdom: ')
-  x = int(input())
+  x = int(input('Wisdom: '))
   stats['Wis'] = x
   if x not in numlist:
     print('You do not have that number')
@@ -103,8 +92,7 @@ while True: #loop to assign stats
     print('')
     print(sorted(numlist, reverse=True))
     print('')
-  print('Charisma: ')
-  x = int(input())
+  x = int(input('Charisma: '))
   stats['Cha'] = x
   if x not in numlist:
     print('You do not have that number')
@@ -113,16 +101,17 @@ while True: #loop to assign stats
     numlist.remove(x)
     print('')
   break
-print('') #Makes a couple gaps for reading clarity
-print('') #Lists stats in a neat order
-print('Your Stats:' + '\n\
-Strength: ' + str(stats['Str']) + '\n\
-Dexterity: ' + str(stats['Dex']) + '\n\
-Constitution: ' + str(stats['Con']) + '\n\
-Intelligence: ' + str(stats['Int']) + '\n\
-Wisdom: ' + str(stats['Wis']) + '\n\
-Charisma: ' + str(stats['Cha']))
-#Done like this for code readability
+if preroll not in ('Yes', 'yes', 'I have', 'I do'):
+  print('') #Makes a couple gaps for reading clarity
+  print('') #Lists stats in a neat order
+  print('Your Stats:' + '\n\
+  Strength: ' + str(stats['Str']) + '\n\
+  Dexterity: ' + str(stats['Dex']) + '\n\
+  Constitution: ' + str(stats['Con']) + '\n\
+  Intelligence: ' + str(stats['Int']) + '\n\
+  Wisdom: ' + str(stats['Wis']) + '\n\
+  Charisma: ' + str(stats['Cha']))
+  #Done like this for code readability
 print('')
 
 #Then because the stat just sets the modifiers
