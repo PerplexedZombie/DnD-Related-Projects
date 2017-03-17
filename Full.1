@@ -9,7 +9,7 @@ numlist = [] #Will be using this to show rolled numbers
 d6 = 3 #determines how many times to roll the d6
 def pStat(): #simple func to roll the
  #d6 3 times then sum them
-  global numblist #using the numlist at start
+  global numlist #using the numlist at start
   rolls = [int(random.randint(1, 6)) for range in range(d6)]
   numlist.append(sum(rolls))
   
@@ -180,6 +180,8 @@ if 17 == stats['Dex'] or 18 == stats['Dex']:
 charWin = 0
 gobWin = 0
 sim = 0
+gobCritWin = 0 
+charCritWin = 0 
 
 #This is to check the previous modifiers are working
 #and sets up player stats for simulation
@@ -219,6 +221,7 @@ while sim != 1000: #Simulation
     #print('Goblin\'s HP: ' + str(gobHP))
     if gobHP <= 0: #Check to move to next round
       charWin += 1 #Counts victories
+      charCritWin += 1 
       gobHP = 7 #Reset the stats
       charHP = PcharHP
       sim += 1 #Count the sim rounds
@@ -284,6 +287,7 @@ while sim != 1000: #Simulation
     #print('Character\'s HP: ' + str(charHP))
     if charHP <= 0:
       gobWin += 1
+      gobCritWin += 1
       gobHP = 7
       charHP = PcharHP
       sim += 1
@@ -329,5 +333,9 @@ while sim != 1000: #Simulation
       continue
 print('Won ' + str(charWin) + ' out of 1000')
 print('Character has ' + str(int((charWin/1000) * 100)) + '% of winning')
+print('*Character won ' + str(charCritWin) + ' by\
+ lucky crits*')
+print('*Goblin won ' + str(gobCritWin) + ' by\
+ lucky crits*')
 
 
