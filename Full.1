@@ -1,341 +1,211 @@
+import random
+import time 
 
-#aiming to make code that will roll 3d6 6 times
-#and make a list of the results then make a dictionairy 
-#using the results as an example of a DnD character sheet
+PCharHP = 20
+CharHP = PCharHP
+CharAttack = random.randint(10, 35)
+CharDefence = random.randint(8, 28)
+CDefHolder = CharDefence
+CharSpeed = random.randint(20, 100)
+CharAccuracy = random.randint(30, 80)
+CharPotion = 3 
+CUsedBlock = 0 
 
-import random #see XKCD.com/221
- #import random module to make a random number on a d6
-numlist = [] #Will be using this to show rolled numbers
-d6 = 3 #determines how many times to roll the d6
-def pStat(): #simple func to roll the
- #d6 3 times then sum them
-  global numlist #using the numlist at start
-  rolls = [int(random.randint(1, 6)) for range in range(d6)]
-  numlist.append(sum(rolls))
+PEnemyHP = random.randint(5, 20)
+EnemyHP = PEnemyHP
+EnemyAttack = random.randint(10, 28)
+EnemyDefence = random.randint(10, 23)
+EDefHolder = EnemyDefence
+EnemySpeed = random.randint(20, 100)
+EnemyAccuracy = random.randint(30, 80)
+EnemyPotion = 3 
+EUsedBlock = 0 
+
+DMG = 0
+options = ['Attack', 'Block', 'Potion',]
+def PokePrint():
+  print('         '.join(options[:2]))
+  print('')
+  print('         '.join(options[2:]))
+  print('')
   
-for x in range(0, 6): #uses the previous func to gen 6 numbers
-  pStat() #for the stats
+def stats():
+  global CharHP
+  global EnemyHP
+  print('Your HP: ' + str(CharHP))
+  print('Enemy HP: ' + str(EnemyHP))
+  print('')
 
-
-stats = {} #dict for the end results
-while True: #loop to assign stats
-  print('Do you already have stats rolled?')
-  preroll = input()
-  if preroll in ('Yes', 'yes', 'I have', 'I do'):
-    print('')
-    print('Enter your stats')
-    x = int(input('Strength: '))
-    stats['Str'] = x
-    x = int(input('Dexterity: ')) #repeats for all stats
-    stats['Dex'] = x
-    x = int(input('Constitution: '))
-    stats['Con'] = x
-    x = int(input('Intelligence: '))
-    stats['Int'] = x
-    x = int(input('Wisdom: '))
-    stats['Wis'] = x
-    x = int(input('Charisma: '))
-    stats['Cha'] = x
-    break
-  print('Generating some for you')
-  print(sorted(numlist, reverse=True)) #makes a list of the
- #availble number to use
-  print('Assign your stats') #Goes through the stats one by one
-  x = int(input('Strength: ')) #with user unputting an int
-  stats['Str'] = x #x is used as it doesn't have to remember
-  #the input throughout
-  if x not in numlist: #int is checked to see if user rolled
-    print('You do not have that number') #that number
-    continue #if they don't have the number it loops
-  else: #This then removes the number input
-    numlist.remove(x) #to show remaining numbers
-    print('') #and to avoid using the same number
-    print(sorted(numlist, reverse=True)) #for all stats
-    print('') #caused by a loop hole
-  x = int(input('Dexterity: ')) #repeats for all stats
-  stats['Dex'] = x
-  if x not in numlist:
-    print('You do not have that number')
-    continue
-  else:
-    numlist.remove(x)
-    print('')
-    print(sorted(numlist, reverse=True))
-    print('')
-  x = int(input('Constitution: '))
-  stats['Con'] = x
-  if x not in numlist:
-    print('You do not have that number')
-    continue
-  else:
-    numlist.remove(x)
-    print('')
-    print(sorted(numlist, reverse=True))
-    print('')
-  x = int(input('Intelligence: '))
-  stats['Int'] = x
-  if x not in numlist:
-    print('You do not have that number')
-    continue
-  else:
-    numlist.remove(x)
-    print('')
-    print(sorted(numlist, reverse=True))
-    print('')
-  x = int(input('Wisdom: '))
-  stats['Wis'] = x
-  if x not in numlist:
-    print('You do not have that number')
-    continue
-  else:
-    numlist.remove(x)
-    print('')
-    print(sorted(numlist, reverse=True))
-    print('')
-  x = int(input('Charisma: '))
-  stats['Cha'] = x
-  if x not in numlist:
-    print('You do not have that number')
-    continue
-  else:
-    numlist.remove(x)
-    print('')
-  break
-if preroll not in ('Yes', 'yes', 'I have', 'I do'):
-  print('') #Makes a couple gaps for reading clarity
-  print('') #Lists stats in a neat order
-  print('Your Stats:' + '\n\
-  Strength: ' + str(stats['Str']) + '\n\
-  Dexterity: ' + str(stats['Dex']) + '\n\
-  Constitution: ' + str(stats['Con']) + '\n\
-  Intelligence: ' + str(stats['Int']) + '\n\
-  Wisdom: ' + str(stats['Wis']) + '\n\
-  Charisma: ' + str(stats['Cha']))
-  #Done like this for code readability
-print('')
-
-#Then because the stat just sets the modifiers
-#have stats checked to determine modifiers
-
-if 1 == stats['Con'] or 2 == stats['Con']:
-  ConMod = -5
-if 3 == stats['Con'] or 4 == stats['Con']:
-  ConMod = -4
-if 5 == stats['Con'] or 6 == stats['Con']:
-  ConMod = -3
-if 7 == stats['Con'] or 8 == stats['Con']:
-  ConMod = -2
-if 9 == stats['Con'] or 10 == stats['Con']:
-  ConMod = -1
-if 11 == stats['Con'] or 12 == stats['Con']:
-  ConMod = 0
-if 13 == stats['Con'] or 14 == stats['Con']:
-  ConMod = 1
-if 15 == stats['Con'] or 16 == stats['Con']:
-  ConMod = 2
-if 17 == stats['Con'] or 18 == stats['Con']:
-  ConMod = 3
-
-if 1 == stats['Str'] or 2 == stats['Str']:
-  StrMod = -5
-if 3 == stats['Str'] or 4 == stats['Str']:
-  StrMod = -4
-if 5 == stats['Str'] or 6 == stats['Str']:
-  StrMod = -3
-if 7 == stats['Str'] or 8 == stats['Str']:
-  StrMod = -2
-if 9 == stats['Str'] or 10 == stats['Str']:
-  StrMod = -1
-if 11 == stats['Str'] or 12 == stats['Str']:
-  StrMod = 0
-if 13 == stats['Str'] or 14 == stats['Str']:
-  StrMod = 1
-if 15 == stats['Str'] or 16 == stats['Str']:
-  StrMod = 2
-if 17 == stats['Str'] or 18 == stats['Str']:
-  StrMod = 3
-
-if 1 == stats['Dex'] or 2 == stats['Dex']:
-  DexMod = -5
-if 3 == stats['Dex'] or 4 == stats['Dex']:
-  DexMod = -4
-if 5 == stats['Dex'] or 6 == stats['Dex']:
-  DexMod = -3
-if 7 == stats['Dex'] or 8 == stats['Dex']:
-  DexMod = -2
-if 9 == stats['Dex'] or 10 == stats['Dex']:
-  DexMod = -1
-if 11 == stats['Dex'] or 12 == stats['Dex']:
-  DexMod = 0
-if 13 == stats['Dex'] or 14 == stats['Dex']:
-  DexMod = 1
-if 15 == stats['Dex'] or 16 == stats['Dex']:
-  DexMod = 2
-if 17 == stats['Dex'] or 18 == stats['Dex']:
-  DexMod = 3
+def Catk():
+  global DMG
+  global EnemyDefence
+  global CharAttack
+  DMG = int(((CharAttack / EnemyDefence) / 2) * 10)
+  if DMG == 0:
+    DMG = 1
+  print('You deal ' + str(DMG) + ' damage')
   
-#3 crucial modifiers for the simulation
+def Eatk():
+  global CharDefence
+  global EnemyAttack
+  DMG = int(((EnemyAttack / CharDefence) / 2) * 10)
+  if DMG == 0:
+    DMG = 1
+  print('Enemy deals ' + str(DMG) + ' damage')
+  print('')
 
-#The variables for the simulation
-charWin = 0
-gobWin = 0
-sim = 0
-gobCritWin = 0 
-charCritWin = 0 
+def CPotion():
+  global CharHP
+  global PCharHP
+  global CharPotion
+  print('Drank potion')
+  recovered = random.randint(5, 10)
+  print('Restored ' + str(recovered) + ' HP')
+  CharHP += recovered
+  if CharHP > PCharHP:
+    CharHP = PCharHP
+  CharPotion -= 1 
+  print('Remaining potions: ' + str(CharPotion))
+  print('')
+  
+def EPotion():
+  global EnemyHP
+  global PEnemyHP
+  global EnemyPotion
+  print('Drank potion')
+  recovered = random.randint(5, 10)
+  print('Restored ' + str(recovered) + ' HP')
+  EnemyHP += recovered
+  if EnemyHP > PEnemyHP:
+    EnemyHP = PEnemyHP
+  EnemyPotion -= 1 
+  print('Remaining potions: ' + str(EnemyPotion))
+  print('')
+  
+def clear():
+  i = 0 
+  for i in range(1, 5):
+    print('')
 
-#This is to check the previous modifiers are working
-#and sets up player stats for simulation
-print('Your Max HP is: ')
-PcharHP = 12 + ConMod
-print(PcharHP) #A permanent variable to reset the
-               #HP after each round
-print('(12 + ' + str(ConMod) + ')') #Str mod for damage
-print('')
-print('Your AC is: ') #AC mod for damage avoidance
-AC = 11 + DexMod
-print(AC)
-print('(11 + ' + str(DexMod) + ')')
-print('')
-
-#These check previous modifiers are working
-print('ConMod: ' + str(ConMod)) 
-print('StrMod: ' + str(StrMod))
-print('DexMod: ' + str(DexMod))
-print('')
-gobHP = 7
-charHP = PcharHP
-gobCrit = 0
-charCrit = 0
-
-while sim != 1000: #Simulation
-  d20 = random.randint(1, 20) #Rolls a d20
-  #print('Character Rolled ' + str(d20))
-  if d20 == 20: #Accounts for a crit
-    #print('Crit')
-    charCrit += 1 #Tracks crit for fun
-    charDmg = (random.randint(1, 6) + StrMod) * 2
-    if charDmg <= 0: #Incase the StrMod makes the Dmg negative
-      charDmg = 2
-    #print('Character deals ' + str(charDmg) + ' damage')
-    gobHP -= charDmg
-    #print('Goblin\'s HP: ' + str(gobHP))
-    if gobHP <= 0: #Check to move to next round
-      charWin += 1 #Counts victories
-      charCritWin += 1 
-      gobHP = 7 #Reset the stats
-      charHP = PcharHP
-      sim += 1 #Count the sim rounds
-      #print('Character wins ' + str(charWin)) #Visually counts
-      #sim rounds
-      
-      #print('')
+  
+while (EnemyHP >= 0) and (CharHP >= 0):
+  if CharSpeed > EnemySpeed:
+    PokePrint()
+    x = input('I use ')
+    if x not in(options):
+      print('That isn\'t an option you can do')
       continue
-    else:
-      continue
-  elif d20 == 1: #Accounts for Crit fail
-    #print('Critical fail')
-    charDmg = int(random.randint(1, 4) + (StrMod / 2)) #Self Dmg
-    if charDmg <= 0: #incase of negative Dmg
-      charDmg = 2
-    #print('Character injured themself for ' + str(charDmg) + ' damage')
-    charHP -= charDmg
-    #print('Character\'s HP: ' + str(int(charHP)))
-    if charHP <= 0: #could object orientate this
-      gobWin += 1 #resets the round if applicable
-      gobHP = 7
-      charHP = PcharHP
-      sim += 1
-      #print('Goblin wins ' + str(gobWin))
-      #Because this follows a crit fail, it counts for the Gob
-      #Rather than Char, as Char is the one that could die
-      
-      #print('')
-      continue
-  elif d20 != (20) or (1): #The overall roll
-    d20M = d20 + 3 #Plus the modifier
-    #print('d20M: ' + str(d20M))
-    if d20M >= 15: #Checks against Gob AC
-      charDmg = random.randint(1, 6) + StrMod #Dmg
-      if charDmg <= 0: #incase of negative Dmg
-        charDmg = 1
-      #print('Character deals ' + str(charDmg) + ' damage')
-      gobHP -= charDmg
-      #print('Goblin\'s HP: ' + str(gobHP))
-      if gobHP <= 0:
-        charWin += 1 
-        gobHP = 7
-        charHP = PcharHP
-        sim += 1
-        #print('Character wins ' + str(charWin))
-        #print('')
+    if x == 'Attack':
+      Catk()
+      EnemyHP = EnemyHP - DMG
+      EnemyDefence = EDefHolder
+      stats()
+      if EnemyHP <= 0:
+        break
+    if x == 'Block':
+      print('You brace for impact (Take less damage)')
+      CharDefence *= 100 
+      EnemyDefence = EDefHolder
+      stats()
+    if x == 'Potion':
+      if CharPotion == 0:
+        print('You don\'t have any potions left')
+        EnemyDefence = EDefHolder
         continue
       else:
-        continue
-    elif d20M < 15:
-      #print('Miss')
-      pass
-  d20 = random.randint(1, 20) 
-  #After the player roll, rolls for the goblin
-  #this allows it to alternate
-  #print('Goblin Rolled ' + str(d20))
-  if d20 == 20:
-    #print('Crit')
-    gobCrit += 1
-    gobDmg = (random.randint(1, 6) + 2) * 2
-    #print('Goblin deals ' + str(gobDmg) + ' damage')
-    charHP -= gobDmg
-    #print('Character\'s HP: ' + str(charHP))
-    if charHP <= 0:
-      gobWin += 1
-      gobCritWin += 1
-      gobHP = 7
-      charHP = PcharHP
-      sim += 1
-      #print('Goblin wins ' + str(gobWin))
-      #print('')
-      continue
-    else:
-      continue
-  elif d20 == 1:
-    #print('Critical fail')
-    gobDmg = int(random.randint(1, 4) + (2 / 2))
-    #print('Goblin injured itself for ' + str(gobDmg) + ' damage')
-    gobHP -= gobDmg
-    #print('Goblin\'s HP: ' + str(int(gobHP)))
-    if gobHP <= 0:
-      charWin += 1
-      gobHP = 7
-      charHP = PcharHP
-      sim += 1
-      #print('Character wins ' + str(charWin))
-      #print('')
-      continue
-  elif d20 != (20) or (1):
-    d20M = d20 + 4
-    #print('d20M = ' + str(d20M))
-    if d20M >= AC:
-      gobDmg = random.randint(1, 6) + 2
-      #print('Goblin deals ' + str(gobDmg) + ' damage')
-      charHP -= gobDmg
-      #print('Character\'s HP: ' + str(charHP))
-      if charHP <= 0:
-        gobWin += 1
-        gobHP = 7
-        charHP = PcharHP
-        sim += 1
-        #print('Goblin wins ' + str(gobWin))
-        #print('')
+        CPotion()
+        EnemyDefence = EDefHolder
+        stats()
+    EnemyChoice = options[random.randint(0, 2)]
+    print('Enemy used ' + str(EnemyChoice))
+    if EnemyChoice == 'Attack':
+      Eatk()
+      CharHP = CharHP - DMG
+      CharDefence = CDefHolder
+      stats()
+      time.sleep(3)
+      clear()
+      if CharHP <= 0:
+        break
+    if EnemyChoice == 'Block':
+      print('Enemy braced for impact (Take less damage')
+      EnemyDefence *= 100
+      CharDefence = CDefHolder
+      stats()
+      time.sleep(3)
+      clear()
+    if EnemyChoice == 'Potion':
+      if EnemyPotion == 0:
+        CharDefence = CDefHolder
+        time.sleep(3)
+        clear()
         continue
       else:
+        EPotion()
+        CharDefence = CDefHolder
+        stats()
+        time.sleep(3)
+        clear()
+  if EnemySpeed > CharSpeed:
+    EnemyChoice = options[random.randint(0, 2)]
+    print('Enemy used ' + str(EnemyChoice))
+    if EnemyChoice == 'Attack':
+      Eatk()
+      CharHP = CharHP - DMG
+      CharDefence = CDefHolder
+      stats()
+      if CharHP <= 0:
+        break
+    if EnemyChoice == 'Block':
+      print('Enemy braced for impact (Take less damage')
+      EnemyDefence *= 100
+      CharDefence = CDefHolder
+      stats()
+    if EnemyChoice == 'Potion':
+      if EnemyPotion == 0:
+        CharDefence = CDefHolder
         continue
-    elif d20M < AC:
-      #print('Miss')
+      else:
+        EPotion()
+        CharDefence = CDefHolder
+        stats()
+    PokePrint()
+    x = input('I use ')
+    if x not in(options):
+      print('That isn\'t an option you can do')
+      time.sleep(3)
+      clear()
       continue
-print('Won ' + str(charWin) + ' out of 1000')
-print('Character has ' + str(int((charWin/1000) * 100)) + '% of winning')
-print('*Character won ' + str(charCritWin) + ' by\
- lucky crits*')
-print('*Goblin won ' + str(gobCritWin) + ' by\
- lucky crits*')
-
-
+    if x == 'Attack':
+      Catk()
+      EnemyHP = EnemyHP - DMG
+      EnemyDefence = EDefHolder
+      stats()
+      time.sleep(3)
+      clear()
+      if EnemyHP <= 0:
+        break
+    if x == 'Block':
+      print('You brace for impact (Take less damage)')
+      CharDefence *= 100 
+      EnemyDefence = EDefHolder
+      time.sleep(3)
+      clear()
+      stats()
+    if x == 'Potion':
+      if CharPotion == 0:
+        print('You don\'t have any potions left')
+        EnemyDefence = EDefHolder
+        time.sleep(3)
+        clear()
+        continue
+      else:
+        CPotion()
+        EnemyDefence = EDefHolder
+        time.sleep(3)
+        clear()
+        stats()
+if EnemyHP <= 0:
+  print('You won')
+if CharHP <= 0:
+  print('You lost')
